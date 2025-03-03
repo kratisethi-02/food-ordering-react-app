@@ -11,3 +11,5 @@ features used:
 7. created Cart component to display selected item with their quantity, and sub total price
 8. created userProgressContext api to keep a track on whether we want to open modal or not 
 9. updated header to display quantity of items beside cart
+10. Included cart in app.js and onclick process will be set to cart which will open the modal
+11. updated the Modal side effect , to open and close modal 

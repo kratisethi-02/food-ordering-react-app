@@ -6,9 +6,12 @@ const Modal = ({ children, open, className = "" }) => {
 
   useEffect(
     () => {
+      const modal = dialog.current;
       if (open) {
-        dialog.current.showModal();
+        modal.showModal();
       }
+      //whenever value for open changes cleanup func will run
+      return () => modal.close();
     },
     [open]
   );
