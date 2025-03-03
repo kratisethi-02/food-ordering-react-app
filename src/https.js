@@ -5,7 +5,10 @@ export async function fetchMeals() {
   const response = await fetch("http://localhost:3000/meals");
 
   if (!response.ok) {
-    //....
+    const error = new Error("An error occured while fetching meals");
+    error.code = response.status;
+    error.info = await response.json();
+    throw error;
   }
 
   const meals = await response.json();
@@ -13,7 +16,7 @@ export async function fetchMeals() {
 }
 
 export async function checkoutCart({ items, customer }) {
-  const response = await fetch("http://localhost:3000/orders", {
+  const response = await fetch("http://localhost:3000/ordecrs", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"

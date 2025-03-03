@@ -2,14 +2,16 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { fetchMeals } from "../https";
 import MealItem from "./MealItem";
+import Error from "./Error";
 
 const Meals = () => {
   const { data, isPending, isError, error } = useQuery({
     queryKey: ["meals"],
     queryFn: ({ signal }) => fetchMeals()
   });
-  if (data) {
-    console.log(data);
+
+  if (isError) {
+    return <Error title="Failed to fetch meals" message={error.message} />;
   }
 
   return (
