@@ -5,6 +5,7 @@ import { queryClient } from "./https";
 import { CartContextProvider } from "./store/CartContext";
 import { UserProgressContextProvider } from './store/UserProgressContext';
 import Cart from "./components/Cart";
+import Checkout from "./components/Checkout";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
     <Header/>
     <Meals/>
     <Cart/>
+    <Checkout/>
     </CartContextProvider>
     </UserProgressContextProvider>
     </QueryClientProvider>
