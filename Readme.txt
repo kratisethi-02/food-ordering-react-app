@@ -8,3 +8,6 @@ features used:
 5. updating total items in cart using reduce function which will count the quantities of items
 6. created a portal using createPortal from react-dom , for modal (using dialog which is grate for displaying overlays)
     this createPortal will take two arg one the content and 2nd- where you wanna display this portal like document.getElementById
+7. created Cart component to display selected item with their quantity, and sub total price
+8. created userProgressContext api to keep a track on whether we want to open modal or not 
+9. updated header to display quantity of items beside cart
