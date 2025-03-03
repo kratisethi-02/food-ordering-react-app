@@ -15,7 +15,8 @@ const Meals = () => {
   return (
     <ul id="meals">
       {!isPending && data.map(meal => <MealItem key={meal.id} meal={meal} />)}
-      {isPending && <p>Fetching Menu</p>}
+      {isPending &&
+        <p className="pending-center">Finding your yummy meals....</p>}
     </ul>
   );
 };
