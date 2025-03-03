@@ -16,7 +16,7 @@ export async function fetchMeals() {
 }
 
 export async function checkoutCart({ items, customer }) {
-  const response = await fetch("http://localhost:3000/ordecrs", {
+  const response = await fetch("http://localhost:3000/orders", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"

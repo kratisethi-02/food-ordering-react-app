@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useState } from "react";
 import Modal from "./UI/Modal";
 import CartContext from "../store/CartContext";
 import { currencyFormatter } from "../util/formatting";
@@ -21,23 +21,36 @@ const Checkout = () => {
 
   function handleCloseCheckout() {
     userProgressCtx.hideCheckout();
+    setSuccessful(false);
   }
 
-  const { mutate, isPending, isError, error } = useMutation({
+  const [successful,setSuccessful]=useState(false);
+  const {mutate, isPending, isSuccess, isError, error } = useMutation({
     mutationFn: checkoutCart,
     onSuccess: () => {
-      cartCtx.items = []; // Clear cart items
+      cartCtx.clearCart(); // Clear cart items
       formRef.current?.reset(); // Reset form fields
-      handleCloseCheckout(); // Close modal ONLY on success
+      setSuccessful(true); // Close modal ONLY on success
     }
   });
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    const fd = new FormData(event.target);
+  function handleSubmitAction(fd) {
+   
+  
     const customerData = Object.fromEntries(fd.entries());
 
     mutate({ items: cartCtx.items, customer: customerData });
+  }
+  if(successful){
+    return <Modal  open={userProgressCtx.progress === "checkout"} onClose={handleCloseCheckout}>
+        <h2>Success!!</h2>
+        <p>Your Order was successfully placed. </p>
+        <p>We are preparing your food, more details will be shared via message</p>
+         <Button type="button"  className="modal-actions" onClick={handleCloseCheckout}>
+              Okay
+            </Button>
+
+    </Modal>
   }
 
   return (
@@ -45,7 +58,7 @@ const Checkout = () => {
       open={userProgressCtx.progress === "checkout"} 
       onClose={userProgressCtx.progress === "checkout" && !isPending ? handleCloseCheckout : null} // Prevent closing while loading
     >
-      <form onSubmit={handleSubmit} ref={formRef}>
+      <form action={handleSubmitAction} ref={formRef}>
         <h2>Checkout</h2>
         <p>Total Amount: {currencyFormatter.format(cartTotal)}</p>
         <Input label="Full Name" type="text" id="name" />
